@@ -1,0 +1,43 @@
+.fall-container{
+    display: flex;
+    height: 870px;
+    width: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position-x: center;
+    justify-content: center;
+    align-items: center;
+}
+
+.text-fall{
+    color: #3C3F40;
+}
+
+.winter{
+    font-size: 68px;
+    font-family: 'Times New Roman', Times, serif;
+    width: 673.2px;
+    margin-left: 50px;
+    font-weight: 700;
+    background-color:rgba(233,228,218,0.73);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    height: 219px;
+    }
+
+    .footer-fall{
+        background-color: #D3D3D3;
+        height: 52px;
+        width: 100%;
+        text-align: center;
+        line-height: 52px;
+        color: #3C3F40;
+        font-family: 'URW Chancery';
+        font-size: 15px;
+    }
+
+
+
+ 

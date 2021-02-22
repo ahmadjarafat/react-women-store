@@ -1,0 +1,11 @@
+.enter{
+    background-color: #5B5551;
+}
+
+.information{
+    margin-right: 10px;
+}
+
+::-webkit-input-placeholder{
+    color: blue;
+}

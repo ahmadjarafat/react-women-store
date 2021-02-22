@@ -1,0 +1,34 @@
+a.quickLink:link {
+    color: #6C6D6D;
+    text-decoration: none;
+  }
+  
+  /* visited link */
+  a.quickLink:visited {
+    color: #6C6D6D;
+    text-decoration: none;
+  }
+  
+  /* mouse over link */
+  a.quickLink:hover {
+    color: #6C6D6D;
+    text-decoration: none;
+  }
+  
+  /* selected link */
+  a.quickLink:active {
+    color: #6C6D6D;
+    text-decoration: none;
+  }
+
+  .productImage{
+      height: 500px;
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: 100% 50%;
+      
+  }
+
+  .productText{
+    margin-top: 70px;
+  }

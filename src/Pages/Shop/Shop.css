@@ -1,0 +1,17 @@
+.shop-header{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 240px;
+}
+
+.price-style{
+    color:#7F7F7F;
+    font-size: 20px;
+}
+
+select{
+   color: #7F7F7F;
+}
+

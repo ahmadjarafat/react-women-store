@@ -1,0 +1,21 @@
+.year-round-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 325px;
+}
+
+.vector{
+    width: 45px;
+    background-color: #3C3F40;
+    height: 1px;
+}
+
+.year-round{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 160px;
+}
