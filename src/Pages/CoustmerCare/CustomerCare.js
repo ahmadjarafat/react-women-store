@@ -25,7 +25,7 @@ function CustomerCare (){
                 <Grid item>
                     <Typography variant="subtitle2">
                     I'm a paragraph. Click here to add your own text and edit me. It’s easy.<br />
-                     Just click “Edit Text” or double click me to add your own content and<br />
+                     fJust click “Edit Text” or double click me to add your own content and<br />
                      make changes to the font. I’m a great place for you to tell a story and<br />
                      &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
                      let your users know a little more about you

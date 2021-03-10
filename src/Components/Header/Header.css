@@ -33,4 +33,31 @@ margin-top: 35px;
 
 .Icons{
 width: 90px;
+display: flex;
+align-items: center;
+justify-content: space-around;
+margin-top: 16px;
 }
+
+a.navLink:link {
+    color: #D3D3D3;
+    text-decoration: none;
+  }
+  
+  /* visited link */
+  a.navLink:visited {
+    color: #D3D3D3;
+    text-decoration: none;
+  }
+  
+  /* mouse over link */
+  a.navLink:hover {
+    color: #D3D3D3;
+    text-decoration: none;
+  }
+  
+  /* selected link */
+  a.navLink:active {
+    color: #D3D3D3;
+    text-decoration: none;
+  }

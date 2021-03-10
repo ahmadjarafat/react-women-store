@@ -2,12 +2,12 @@ import React from "react";
 import "./Header.css"
 import {
     Link
-  } from "react-router-dom";
-  
-  
+  } from "react-router-dom"; 
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import { Typography } from "@material-ui/core";
 
-function Header()
-{
+function Header(props)
+{ 
     return(
         <div className="Header-container">
             <div className="center-container">
@@ -15,26 +15,30 @@ function Header()
                 P R E T T Y &nbsp; G A L 
               </h1>
                <div className="Navigation">
-               <Link to="/">
+               <Link className="navLink" to="/">
                  Home
                </Link>
-               <Link to="/shop">
+               <Link className="navLink" to="/shop">
                  Shop
                </Link>
-               <Link  to="/">
+               <Link className="navLink"  to="/">
                Sale
                </Link>
-               <Link  to="/CustomerCare">
+               <Link className="navLink" to="/CustomerCare">
                Customer Care
                </Link>
-               <Link  to="/Stockists">
+               <Link className="navLink" to="/Stockists">
                Stockists
                </Link>
             </div>
-            
+            <Link style={{marginTop: "16px"}} className="navLink" to="/Cart">
             <div className="Icons">
-hello 
+            <Typography style={{fontSize: "20px",color: "#D3D3D3"}} variant="subtitle2">
+               {props.cart}
+            </Typography>
+            <ShoppingCartIcon fontSize="large" />
                </div>
+               </Link>
         </div>
         </div>
     )

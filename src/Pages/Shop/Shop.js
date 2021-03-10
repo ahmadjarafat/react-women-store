@@ -255,22 +255,14 @@ function Shop(props){
               {[0,3,6,9,12,15,18,21,24].map((value) => (
                 <Grid className={`card${value}`} key={value} xs={4} item>
                  <Link to={() => {
-                  const cardDescription = data.products && data.products[value].shortDescription;
-                  const cardImage = data.products&&data.products[value].image.sizes[2].url;
-                  const cardPrice = data.products && data.products[value].maximumPriceString;
-                  const cardCaption = data.products&&data.products[value].image.caption;
                   const cardColor = color;
                    return {
                      pathname: "/quickView",
-                     state: { clickTarget: {
-                      text1 : cardDescription,
-                      image : cardImage,
-                      price : cardPrice,
-                      text2: cardCaption,
+                     state: { 
+                      index: value,
+                      dataObject: data.products,
                       color: cardColor,
-                      
-                       
-                     } }
+                     } 
                   }}} >
           
                    <Card>

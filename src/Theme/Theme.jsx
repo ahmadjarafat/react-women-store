@@ -22,12 +22,15 @@ export const theme = createMuiTheme({
                 padding: '20px 5px 20px 5px',
                 color: "white",
                 height: "49px",
+                '&:hover':{
+                  backgroundColor: "gray",
+                }
             },
                 
               label: {
                 fontSize: '17px',
                 textTransform: "none",
-              }
+              },
         },
         MuiTypography: {
           h1:{
