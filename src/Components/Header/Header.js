@@ -5,9 +5,28 @@ import {
   } from "react-router-dom"; 
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import { Typography } from "@material-ui/core";
-
+import IconButton from '@material-ui/core/IconButton';
+import { makeStyles } from '@material-ui/core/styles';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import Grid from '@material-ui/core/Grid';
 function Header(props)
 { 
+  const useStyles = makeStyles((theme) => ({
+  Icon: {
+    width: 50,
+    height: 50,
+  }, 
+ button: {
+  display: "flex",
+  alignItems: "center",
+  justifyItems: "center"
+  }
+  
+  }))
+
+  const classes = useStyles();
+
+  
     return(
         <div className="Header-container">
             <div className="center-container">
@@ -31,14 +50,26 @@ function Header(props)
                Stockists
                </Link>
             </div>
-            <Link style={{marginTop: "16px"}} className="navLink" to="/Cart">
-            <div className="Icons">
-            <Typography style={{fontSize: "20px",color: "#D3D3D3"}} variant="subtitle2">
+            <Grid justifyItems="center" alignItems="center" style={{width: "150px"}} container>
+              <Grid item>
+            <Link className="navLink" to="/Cart"> 
+            <IconButton className={classes.button} >
+            <ShoppingCartIcon className={classes.Icon} htmlColor="#D3D3D3" />
+            <Typography style={{fontSize: "15px",color: "#3C3F40", marginLeft: props.cart < 10  ? "-28px" : props.cart > 10 && props.cart < 100? "-33px" : "-38px", marginBottom:"13px"}} variant="subtitle2">
                {props.cart}
             </Typography>
-            <ShoppingCartIcon fontSize="large" />
-               </div>
-               </Link>
+         </IconButton>
+ </Link>
+              </Grid>
+<Grid item>
+ <Link className="navLink" to="/SignIn"> 
+        <IconButton>
+         <AccountCircleIcon  htmlColor= "#D3D3D3" className={classes.Icon} />
+
+        </IconButton>
+ </Link>
+ </Grid>
+ </Grid>
         </div>
         </div>
     )

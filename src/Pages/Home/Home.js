@@ -10,6 +10,9 @@ import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import CardMedia from '@material-ui/core/CardMedia';
 import Purse from "./purse.png";
+import neck from "./neck.png"
+import glasses from "./glasses.png"
+
 
 
 
@@ -32,15 +35,15 @@ function Home(){
             <div>
                 <Grid container justify="center">
             <Grid container item xs={10} justify="center" spacing={2}>
-          {[0, 1, 2].map((value) => (
-            <Grid key={value} xs={4} item>
+          {[neck,Purse,glasses].map((value,index) => (
+            <Grid key={index} xs={4} item>
               <Card >
               <CardContent>
                 <CardActionArea style={{height:"550px"}}>
-                    <CardMedia image={Purse} style={{height:"88%", width:"100%"}} />
+                    <CardMedia image={value} style={{height:"88%", width:"100%"}} />
                     
                         <Button style={{width:"100%", height:"12%"}}>
-                        {buttons[value]}
+                        {buttons[index]}
                     </Button>
                     </CardActionArea>
               </CardContent>

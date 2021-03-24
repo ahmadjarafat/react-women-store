@@ -31,14 +31,6 @@ margin-top: 35px;
     width: 1200px;
 }
 
-.Icons{
-width: 90px;
-display: flex;
-align-items: center;
-justify-content: space-around;
-margin-top: 16px;
-}
-
 a.navLink:link {
     color: #D3D3D3;
     text-decoration: none;

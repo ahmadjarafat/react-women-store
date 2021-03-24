@@ -16,6 +16,9 @@ import {QuickView} from "./Pages/QuickView/QuickView"
 import {useEffect,useState,useRef} from "react";
 import Cart from "./Pages/Cart/Cart";
 import {useReducer} from "react";
+import SignIn from "./Pages/SignIn/SignIn"
+import SignUp from "./Pages/SignUp/SignUp"
+import firebase, { auth, provider } from './firebase.js';
 
 
 
@@ -30,7 +33,7 @@ import {useReducer} from "react";
 
 function App() {
 
-  // const [countState,setCountState] = useState(0)
+  
 
   let initialState = {total:0,items:[],cartCount: 0}
  const reducer = (state, action) => {
@@ -97,7 +100,7 @@ function App() {
         default:
         return state;
     }}
-  // const [count, setCount] = useState(0);
+  const [signUpState,setSignUpState] = useState("");
   const [state, dispatch] = useReducer(reducer,initialState);
   
   const addToCart = function (objInfo) {
@@ -143,6 +146,12 @@ return (
           </Route>
           <Route path="/Cart">
             <Cart removeAllOfOneProduct={removeAllOfOneProduct}  removeFunction={removeProducts} addFunction={addProducts} info={state} />
+          </Route>
+          <Route exact path="/SignIn">
+             <SignIn />
+          </Route>
+          <Route exact path="/SignUp">
+             <SignUp/>
           </Route>
    <Route path="/">
             <Home />
