@@ -14,6 +14,9 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { useForm, Controller } from 'react-hook-form';
+import firebase, { auth, provider } from '../../firebase';
+import {useState,useEffect} from "react";
+
 
 
 
@@ -50,12 +53,53 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+
 export default function SignIn() {
   const classes = useStyles();
   const { register, handleSubmit, errors, control } = useForm();
+  const [errorMessage, setErrorMessage] = useState("");
+  const [userState,setUserState] = useState("");
 
-  return (
-    <Container component="main" maxWidth="xs">
+  const handleSignIn = (e) => {
+    firebase.auth().signInWithEmailAndPassword(e.email,e.password)
+  .then((userCredential) => {
+    let user1 = userCredential.user;
+  })
+  .catch((error) => {
+    console.log("hello")
+    console.log(error.message)
+  });
+
+  }
+
+  useEffect(() => {
+    return function cleanUp() {
+        mounted = false; 
+    }
+  })
+
+  const handleSignOut = () => {
+    firebase.auth().signOut().then(() => {
+    }).catch((error) => {
+      console.log(error.message)
+    });
+  }
+
+   
+  let mounted = true;
+  
+  firebase.auth().onAuthStateChanged((user) => {
+    if (mounted){
+   if (user){
+     setUserState(true)
+   }
+   else 
+   {
+    setUserState(false)
+   } }
+  })
+    if (!userState) {
+      return ( <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
@@ -64,7 +108,7 @@ export default function SignIn() {
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
-        <form  onSubmit={handleSubmit()} className={classes.form} >
+        <form onSubmit={handleSubmit(handleSignIn)} className={classes.form} >
           <TextField
             variant="outlined"
             margin="normal"
@@ -76,6 +120,9 @@ export default function SignIn() {
             autoComplete="email"
             autoFocus
             error = {errors.email}
+            inputRef={register({
+             required: 'Please enter your email address',
+           })}
           />
             {errors.email && (
             <span className={classes.error}>{errors.email.message}</span>
@@ -90,6 +137,9 @@ export default function SignIn() {
             type="password"
             id="password"
             autoComplete="current-password"
+            inputRef={register({
+             required: 'Please enter your password',
+           })}
           />
           {errors.password && (
             <div className={classes.error}>{errors.password.message}</div>
@@ -98,6 +148,11 @@ export default function SignIn() {
             control={<Checkbox value="remember" color="primary" />}
             label="Remember me"
           />
+          {errorMessage && (
+            <div>
+              {errorMessage}
+            </div>
+          )}
           <Button
             type="submit"
             fullWidth
@@ -124,7 +179,25 @@ export default function SignIn() {
       <Box mt={8}>
         <Copyright />
       </Box>
-    </Container>
-  );
-}
-
+    </Container>)}
+      if(userState) {
+        
+       return ( <Grid spacing={6} direction="column" container>
+          <Grid item>
+            jfkjkd
+          </Grid>
+           <Grid item>
+           <Button onClick={handleSignOut}>
+         Sign Out 
+       </Button>
+           </Grid>
+         </Grid>)
+    } 
+  };
+        
+  
+   
+  
+  
+    
+ 

@@ -100,7 +100,7 @@ function App() {
         default:
         return state;
     }}
-  const [signUpState,setSignUpState] = useState("");
+  const [signUpState,setSignUpState] = useState({});
   const [state, dispatch] = useReducer(reducer,initialState);
   
   const addToCart = function (objInfo) {

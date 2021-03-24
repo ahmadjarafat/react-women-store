@@ -64,9 +64,7 @@ export default function SignUp() {
     "last Name": "",
     "Signed up": false,
 
-  });
- let errorMessage = false;
- let signUpMessage = false; 
+  }); 
 useEffect(() => {
   if(userInfo["Signed up"])
   {
@@ -76,31 +74,35 @@ useEffect(() => {
   lastName: "",
   email: "",
   password: ""})
+  setTimeout(() => {
+    window.location.replace("/")
+  }, 3000);
+  
   }
 },[userInfo])
 
- 
-
+ const [signedUpMessage,setSignedUpMessage] = useState("");
+ const [errorMessage,setErrorMessage] = useState("");
   const handleSignUp = (e) =>
 {
   
   firebase.auth().createUserWithEmailAndPassword(e.email, e.password)
   .then((userCredential) => {
-    console.log(" you are signedUp you bitch")
     let user = userCredential.user;
-     signUpMessage ="you were successfully signed up! happy shopping :)"
     setUserInfo( {
       "first name": e.firstName,
       "last Name": e.lastName,
       "Signed up": true
       })
-      
- 
+      setSignedUpMessage("you were successfully Signed Up :)");
+      setErrorMessage("");
   })
   .catch((error) => {
-     errorMessage = error.message;
+    setErrorMessage(error.message)
+ 
   });
 
+ 
   
  
   
@@ -211,13 +213,13 @@ useEffect(() => {
               />
             </Grid>
             {errorMessage && (
-              <div>
+              <div style={{color: "red"}}>
                 {errorMessage}
               </div>
             )}
-             {signUpMessage && (
-              <div>
-                {signUpMessage}
+             {signedUpMessage && (
+              <div style={{color: "green"}}>
+                {signedUpMessage}
               </div>
             )}
           </Grid>
