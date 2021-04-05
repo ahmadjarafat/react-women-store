@@ -36,10 +36,12 @@ function App() {
   
 
   let initialState = {total:0,items:[],cartCount: 0}
+  const [firstRender,setFirstRender] = useState(false)
  const reducer = (state, action) => {
    let flag = true;
     switch (action.type) {
       case "Add Item":
+        console.log("jf")
         let itemsCopy = state.items.map((value) => {
          if (value.url === action.objInfo.url && value.size === action.objInfo.size )
          {
@@ -96,17 +98,48 @@ function App() {
               return (value.url !== action.obj.url || value.size !== action.obj.size )
             })
           }
+          case "firstRender": 
+          console.log(action.inf)
+          return action.inf;
         default:
-        return state;
+        return {...state}
     }}
   const [state, dispatch] = useReducer(reducer,initialState);
-  useEffect(()=> {
-    let user = firebase.auth().currentUser;
+  
+  useEffect(() => {
+    firebase.auth().onAuthStateChanged(function(user) {
+      if (user && firstRender) {
+        let user = firebase.auth().currentUser;
+         let uid = user.uid;
+         firebase.database().ref("users/" + uid + "/Items").set(state)
+      }
+    },() => {
+      console.log("something went wrong")
+    },  () => firebase.Unsubscribe)
+ },[state])
+
+ useEffect(()=> {
+  firebase.auth().onAuthStateChanged((user) => {
     if(user){
-      let uid = user.uid;
-    firebase.database().ref("users/" + uid + "/Items").set(state)
-    }
-  },[state])
+    let user = firebase.auth().currentUser;
+    let uid = user.uid;
+    firebase.database().ref('users/' + uid).child("Items").on("value",function(snapshot) {
+      if (snapshot.exists()){
+       let inf = snapshot.val();
+       if(!inf["items"])
+       {
+       inf.items = [];
+       }
+        dispatch({type:"firstRender",  inf })
+        setFirstRender(true);
+      }
+      else 
+      console.log("strange behaviour")
+    })
+  }},() => {
+    console.log("something went wrong")
+  },  () => firebase.Unsubscribe)
+},[])
   
   const addToCart = function (objInfo) {
      dispatch({type:"Add Item", objInfo})

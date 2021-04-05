@@ -95,6 +95,10 @@ useEffect(() => {
     setUserInfo( { 
       "first name": e.firstName,
       "last Name": e.lastName,
+      "Items": {
+        cartCount: 0,
+        total: 0,
+      },
       "signedUp": true
       })
       setSignedUpMessage("you were successfully Signed Up :)");
