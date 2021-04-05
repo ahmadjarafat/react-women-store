@@ -1,17 +1,17 @@
 {
   "files": {
     "main.css": "/react-women-store/static/css/main.f0dda091.chunk.css",
-    "main.js": "/react-women-store/static/js/main.433314c5.chunk.js",
-    "main.js.map": "/react-women-store/static/js/main.433314c5.chunk.js.map",
+    "main.js": "/react-women-store/static/js/main.280db05f.chunk.js",
+    "main.js.map": "/react-women-store/static/js/main.280db05f.chunk.js.map",
     "runtime-main.js": "/react-women-store/static/js/runtime-main.e32e5f3e.js",
     "runtime-main.js.map": "/react-women-store/static/js/runtime-main.e32e5f3e.js.map",
-    "static/js/2.74362079.chunk.js": "/react-women-store/static/js/2.74362079.chunk.js",
-    "static/js/2.74362079.chunk.js.map": "/react-women-store/static/js/2.74362079.chunk.js.map",
+    "static/js/2.56106560.chunk.js": "/react-women-store/static/js/2.56106560.chunk.js",
+    "static/js/2.56106560.chunk.js.map": "/react-women-store/static/js/2.56106560.chunk.js.map",
     "static/js/3.c665c70d.chunk.js": "/react-women-store/static/js/3.c665c70d.chunk.js",
     "static/js/3.c665c70d.chunk.js.map": "/react-women-store/static/js/3.c665c70d.chunk.js.map",
     "index.html": "/react-women-store/index.html",
     "static/css/main.f0dda091.chunk.css.map": "/react-women-store/static/css/main.f0dda091.chunk.css.map",
-    "static/js/2.74362079.chunk.js.LICENSE.txt": "/react-women-store/static/js/2.74362079.chunk.js.LICENSE.txt",
+    "static/js/2.56106560.chunk.js.LICENSE.txt": "/react-women-store/static/js/2.56106560.chunk.js.LICENSE.txt",
     "static/media/girl-7.2ae21785.png": "/react-women-store/static/media/girl-7.2ae21785.png",
     "static/media/glasses.572f0ba0.png": "/react-women-store/static/media/glasses.572f0ba0.png",
     "static/media/neck.12e36403.png": "/react-women-store/static/media/neck.12e36403.png",
@@ -19,8 +19,8 @@
   },
   "entrypoints": [
     "static/js/runtime-main.e32e5f3e.js",
-    "static/js/2.74362079.chunk.js",
+    "static/js/2.56106560.chunk.js",
     "static/css/main.f0dda091.chunk.css",
-    "static/js/main.433314c5.chunk.js"
+    "static/js/main.280db05f.chunk.js"
   ]
 }
