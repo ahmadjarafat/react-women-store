@@ -16,6 +16,8 @@ import Container from '@material-ui/core/Container';
 import { useForm, Controller } from 'react-hook-form';
 import firebase, { auth, provider } from '../../firebase';
 import {useState,useEffect} from "react";
+import {Redirect} from "react-router-dom";
+
 
 function Copyright() {
   return (
@@ -42,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.secondary.main,
   },
   form: {
-    width: '100%', // Fix IE 11 issue.
+    width: '100%', 
     marginTop: theme.spacing(3),
   },
   submit: {
@@ -59,26 +61,27 @@ const useStyles = makeStyles((theme) => ({
 export default function SignUp() {
   const classes = useStyles();
   const { register, handleSubmit, errors, control,reset } = useForm();
+  const [key,setKey] =  useState("")
   const [userInfo,setUserInfo] = useState({
+    "user Id": "",
     "first name": "",
     "last Name": "",
-    "Signed up": false,
-
+    "signedUp": false,
   }); 
 useEffect(() => {
-  if(userInfo["Signed up"])
+  if(userInfo["signedUp"])
   {
-   const itemsRef = firebase.database().ref('users');
-    itemsRef.push(userInfo);
+    let user = firebase.auth().currentUser;
+    let uid = user.uid;
+   firebase.database().ref("users").child(uid).set(userInfo);
+   firebase.database().ref("users/" + uid).child("Items");
+   setKey(uid);
   reset({firstName: "",
   lastName: "",
   email: "",
   password: ""})
-  setTimeout(() => {
-    window.location.replace("/")
-  }, 3000);
-  
   }
+  
 },[userInfo])
 
  const [signedUpMessage,setSignedUpMessage] = useState("");
@@ -89,13 +92,14 @@ useEffect(() => {
   firebase.auth().createUserWithEmailAndPassword(e.email, e.password)
   .then((userCredential) => {
     let user = userCredential.user;
-    setUserInfo( {
+    setUserInfo( { 
       "first name": e.firstName,
       "last Name": e.lastName,
-      "Signed up": true
+      "signedUp": true
       })
       setSignedUpMessage("you were successfully Signed Up :)");
       setErrorMessage("");
+      
   })
   .catch((error) => {
     setErrorMessage(error.message)
@@ -199,8 +203,6 @@ useEffect(() => {
                 type="password"
                 id="password"
                 autoComplete="current-password"
-                // onChange={handlePassword}
-                // value= {password}
               />
                {errors.password && (
             <div className={classes.error}>{errors.password.message}</div>
@@ -244,6 +246,11 @@ useEffect(() => {
        <Box mt={5}>
         <Copyright />
       </Box>
+      {key && <Redirect
+  to={{
+    pathname: "/SignIn",
+  }}
+/>}
     </Container> 
   );
 }

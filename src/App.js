@@ -89,7 +89,6 @@ function App() {
         
           })}
           case "remove-every-item":
-            console.log(action.obj)
           return {...state, 
             cartCount: state.cartCount - action.obj.count,
             total: parseFloat((state.total - (parseFloat(action.obj.price.replace("$",""))*action.obj.count)).toFixed(2)),
@@ -100,8 +99,14 @@ function App() {
         default:
         return state;
     }}
-  const [signUpState,setSignUpState] = useState({});
   const [state, dispatch] = useReducer(reducer,initialState);
+  useEffect(()=> {
+    let user = firebase.auth().currentUser;
+    if(user){
+      let uid = user.uid;
+    firebase.database().ref("users/" + uid + "/Items").set(state)
+    }
+  },[state])
   
   const addToCart = function (objInfo) {
      dispatch({type:"Add Item", objInfo})
@@ -130,7 +135,7 @@ return (
     
       <Router>
         <ThemeProvider theme={theme}>
-        <Header cart={state.cartCount} />
+        <Header />
    <Switch>
    <Route path="/CustomerCare">
             <CustomerCare />

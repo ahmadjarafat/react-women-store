@@ -21,6 +21,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import NativeSelect from '@material-ui/core/NativeSelect';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import firebase, { auth, provider } from '../../firebase.js';
 
 
 
@@ -55,7 +56,24 @@ function QuickView (props){
   const [products,setProducts] = useState(history.location.state.dataObject);
   const [currentProduct, setCurrentProduct] = useState(history.location.state.index);
   const [currentState,ii] = useState(history.location.state)
-  const [color, setColor] = useState(history.location.state.color)
+  const [color, setColor] = useState(history.location.state.color);
+  const [valid,setValid] = useState(false) 
+
+  useEffect(() => {
+    let mounted = true
+    firebase.auth().onAuthStateChanged((user) => {
+      if(mounted){
+        if (user) {
+          setValid(true)
+        }
+        else 
+        setValid(false)
+      }
+    })
+    return function CleanUp() {
+      mounted = false;
+    }
+  },[])
   
   const handleIncrement = (e) => {
     if (e.target.value <= 10 )
@@ -102,7 +120,7 @@ function QuickView (props){
               </Grid>
               <Grid item>
            <Button onClick={handlePrevious} className="quickLink">
-              <Typography style={{marginTop:"5px" }} variant="h1" >
+              <Typography style={{marginTop:"5px",color: "#D3D3D3" }} variant="h1" >
                 Prev
                 </Typography>
                 </Button>
@@ -117,7 +135,7 @@ function QuickView (props){
               <Grid justify="flex-start" xs={2} item container>
               <Grid item>
                 <Button onClick={handleNext} >
-              <Typography style={{marginTop: "5px"}} variant="h1" >
+              <Typography style={{marginTop: "5px",color: "#D3D3D3"}} variant="h1" >
                 Next
                 </Typography>
                 

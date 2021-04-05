@@ -24,7 +24,6 @@ const useStyles = makeStyles((theme) => ({
 function CartProduct(props) {
 
 
-
     const classes = useStyles()
     return(
         <Grid item style={{marginTop: "30px"}} xs={12} container direction="column">

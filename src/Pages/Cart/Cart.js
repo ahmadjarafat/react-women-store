@@ -6,6 +6,7 @@ import { Typography } from "@material-ui/core";
 import { makeStyles } from '@material-ui/core/styles';
 import {useState,useEffect} from "react";
 import CartProduct from "../../Components/CartProduct/CartProduct"
+import firebase, { auth, provider } from '../../firebase';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -18,9 +19,38 @@ const useStyles = makeStyles((theme) => ({
 
 
 function Cart (props){
-
+    const [userDataCart,setUserDataCart] = useState({userState: false,
+      userItems: [],
+      userCartCount: 0,
+      userTotal: 0})
+    useEffect(() => {
+        let mounted = true
+        if(mounted){
+        firebase.auth().onAuthStateChanged((user) => {
+            if(user){
+            let user = firebase.auth().currentUser;
+            let uid = user.uid;
+            firebase.database().ref('users/' + uid).child("Items").on("value",function(snapshot) {
+              if (snapshot.exists()){
+              setUserDataCart({...userDataCart, userItems: snapshot.val()["items"], userTotal: snapshot.val()["total"], userCartCount: snapshot.val()["total"] })
+              }
+              else 
+              console.log("strange behaviour")
+            })
+        }
+          
+          else
+          {
+           setUserDataCart({...userDataCart, userState: false})
+          } })}
+          return function CleanUp() {
+            mounted = false;
+          }
+      },[])
+    let arrayCopy = [];
     const classes = useStyles()
-    let arrayCopy = props.info.items;
+    if(userDataCart.userItems)
+     arrayCopy = Object.values(userDataCart.userItems);
     return(
        
         <Grid container spacing={10}  justify="center" direction="row">
@@ -50,7 +80,7 @@ function Cart (props){
                     </Grid> 
                     <Grid item>
                     <Typography style={{fontSize: "20px",color: "#5D5D5E"}} variant="body2">
-                            {`$${props.info.total}`}
+                            {`$${userDataCart.userTotal}`}
                         </Typography>
                     </Grid>
             </Grid>
@@ -81,7 +111,7 @@ function Cart (props){
                     </Grid> 
                     <Grid item>
                     <Typography style={{fontSize: "25px",color: "#5D5D5E"}} variant="body2">
-                    {`$${props.info.total}`}
+                    {`$${userDataCart.userTotal}`}
                         </Typography>
                     </Grid>
             </Grid>

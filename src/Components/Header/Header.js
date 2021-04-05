@@ -7,8 +7,10 @@ import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import { Typography } from "@material-ui/core";
 import IconButton from '@material-ui/core/IconButton';
 import { makeStyles } from '@material-ui/core/styles';
+import {useState,useEffect} from "react";
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import Grid from '@material-ui/core/Grid';
+import firebase, { auth, provider } from '../../firebase';
 function Header(props)
 { 
   const useStyles = makeStyles((theme) => ({
@@ -25,7 +27,26 @@ function Header(props)
   }))
 
   const classes = useStyles();
-
+  const [cartCount, setCartCount] = useState(0);
+  useEffect(() => {
+    let mounted = true
+    firebase.auth().onAuthStateChanged((user) => {
+      if(mounted){
+      if (user){
+        let user = firebase.auth().currentUser;
+        let uid = user.uid;
+        firebase.database().ref('users/' + uid + "/Items/cartCount").on("value",function(snapshot) {
+          if (snapshot.exists()){
+          setCartCount(snapshot.val())
+          }
+          else 
+          console.log("strange behaviour")
+        })
+      }
+      } })
+      return function CleanUp() {
+        mounted = false;
+      }},[])
   
     return(
         <div className="Header-container">
@@ -55,8 +76,8 @@ function Header(props)
             <Link className="navLink" to="/Cart"> 
             <IconButton className={classes.button} >
             <ShoppingCartIcon className={classes.Icon} htmlColor="#D3D3D3" />
-            <Typography style={{fontSize: "15px",color: "#3C3F40", marginLeft: props.cart < 10  ? "-28px" : props.cart > 10 && props.cart < 100? "-33px" : "-38px", marginBottom:"13px"}} variant="subtitle2">
-               {props.cart}
+            <Typography style={{fontSize: "15px",color: "#3C3F40", marginLeft: cartCount < 10  ? "-28px" : cartCount > 10 && cartCount < 100? "-33px" : "-38px", marginBottom:"13px"}} variant="subtitle2">
+               {cartCount}
             </Typography>
          </IconButton>
  </Link>

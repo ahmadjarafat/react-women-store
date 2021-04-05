@@ -12,13 +12,21 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Purse from "./purse.png";
 import neck from "./neck.png"
 import glasses from "./glasses.png"
+import { makeStyles } from '@material-ui/core/styles';
+ 
 
+const useStyles = makeStyles((theme) => ({
+  Cards : {
+    [theme.breakpoints.down('sm')]: {
+     flexDirection: "column",
+    }
+  }
+ }))
 
 
 
 function Home(){
-
-
+    const classes = useStyles();
     const [buttons, setButtons] = useState(["MIDI PLEATED SKIRT", 
     "SALE", "VINTAGE FRAME EYEGLASSES" ])
     return(
@@ -34,7 +42,7 @@ function Home(){
             </div>
             <div>
                 <Grid container justify="center">
-            <Grid container item xs={10} justify="center" spacing={2}>
+            <Grid className={classes.Cards} container item xs={10} justify="center" spacing={2}>
           {[neck,Purse,glasses].map((value,index) => (
             <Grid key={index} xs={4} item>
               <Card >

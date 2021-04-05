@@ -16,7 +16,7 @@ import Container from '@material-ui/core/Container';
 import { useForm, Controller } from 'react-hook-form';
 import firebase, { auth, provider } from '../../firebase';
 import {useState,useEffect} from "react";
-
+import {useHistory} from "react-router-dom";
 
 
 
@@ -55,50 +55,69 @@ const useStyles = makeStyles((theme) => ({
 
 
 export default function SignIn() {
+  let history = useHistory();
   const classes = useStyles();
   const { register, handleSubmit, errors, control } = useForm();
-  const [errorMessage, setErrorMessage] = useState("");
-  const [userState,setUserState] = useState("");
+  const [errorMessage, setErrorMessage] = useState({errorSignIn: "",
+errorSignOut: ""});
+  const [userData,setUserData] = useState({userState: false,
+  userFirstName: "",
+ userLastName: "",
+userItems: [],
+userCartCount: 0});
 
   const handleSignIn = (e) => {
     firebase.auth().signInWithEmailAndPassword(e.email,e.password)
   .then((userCredential) => {
-    let user1 = userCredential.user;
+    let user = userCredential.user;
+    setUserData({...userData, userState: true})
   })
   .catch((error) => {
-    console.log("hello")
-    console.log(error.message)
+    setErrorMessage({...errorMessage, errorSignIn: error.message})
   });
 
   }
 
   useEffect(() => {
-    return function cleanUp() {
-        mounted = false; 
-    }
-  })
+    let mounted = true
+    firebase.auth().onAuthStateChanged((user) => {
+      if(mounted){
+      if (user){
+        let user = firebase.auth().currentUser;
+        let uid = user.uid;
+        firebase.database().ref('users/' + uid).on("value",function(snapshot) {
+          if (snapshot.exists()){
+          setUserData({...userData, userFirstName: snapshot.val()["first name"],
+          userLastName: snapshot.val()["last Name"], userState: true},)
+          }
+          else 
+          console.log("strange behaviour")
+        })
+      }
+      else
+      {
+       setUserData({...userData, userState: false})
+      } }})
+      return function CleanUp() {
+        mounted = false;
+      }
+  },[])
 
   const handleSignOut = () => {
     firebase.auth().signOut().then(() => {
     }).catch((error) => {
-      console.log(error.message)
+      setErrorMessage({...errorMessage, errorSignOut: error.message})
     });
+    
   }
 
+
+ 
    
-  let mounted = true;
   
-  firebase.auth().onAuthStateChanged((user) => {
-    if (mounted){
-   if (user){
-     setUserState(true)
-   }
-   else 
-   {
-    setUserState(false)
-   } }
-  })
-    if (!userState) {
+  
+  
+    if (!(userData.userState)) {
       return ( <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
@@ -148,9 +167,9 @@ export default function SignIn() {
             control={<Checkbox value="remember" color="primary" />}
             label="Remember me"
           />
-          {errorMessage && (
-            <div>
-              {errorMessage}
+          {errorMessage.errorSignIn && (
+            <div style={{color: "red"}}>
+              {errorMessage.errorSignIn}
             </div>
           )}
           <Button
@@ -180,11 +199,15 @@ export default function SignIn() {
         <Copyright />
       </Box>
     </Container>)}
-      if(userState) {
-        
-       return ( <Grid spacing={6} direction="column" container>
-          <Grid item>
-            jfkjkd
+      if(userData.userState) {
+         
+       return ( <Grid justify="center" style={{height:"500px"}} alignItems="center" spacing={10} direction="column" container>
+          <Grid container justify="center" item>
+            <Grid item>
+              <Typography style={{fontSize: "30px"}}>
+                {`${userData.userFirstName}  ${userData.userLastName}`}
+              </Typography>
+            </Grid>
           </Grid>
            <Grid item>
            <Button onClick={handleSignOut}>
@@ -193,7 +216,7 @@ export default function SignIn() {
            </Grid>
          </Grid>)
     } 
-  };
+  }
         
   
    
