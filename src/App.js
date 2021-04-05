@@ -191,7 +191,7 @@ return (
           <Route exact path="/SignUp">
              <SignUp/>
           </Route>
-   <Route path="/">
+   <Route path="/react-women-store">
             <Home />
           </Route>
    </Switch>
