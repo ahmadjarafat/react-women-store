@@ -166,7 +166,7 @@ const removeAllOfOneProduct = (obj) => {
   
 return (
     
-      <Router>
+      <Router basename="/react-women-store">
         <ThemeProvider theme={theme}>
         <Header />
    <Switch>
@@ -191,7 +191,7 @@ return (
           <Route exact path="/SignUp">
              <SignUp/>
           </Route>
-   <Route path="/react-women-store">
+   <Route path="/">
             <Home />
           </Route>
    </Switch>
