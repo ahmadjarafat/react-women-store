@@ -195,7 +195,7 @@ return (
           <Route exact path="/SignUp">
              <SignUp/>
           </Route>
-   <Route path="/Home">
+   <Route exact path="/">
             <Home />
           </Route>
           <Route>
