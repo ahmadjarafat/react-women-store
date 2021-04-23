@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/react-women-store/static/css/main.0c2fd9d1.chunk.css",
-    "main.js": "/react-women-store/static/js/main.37ae9313.chunk.js",
-    "main.js.map": "/react-women-store/static/js/main.37ae9313.chunk.js.map",
+    "main.js": "/react-women-store/static/js/main.5e327d0d.chunk.js",
+    "main.js.map": "/react-women-store/static/js/main.5e327d0d.chunk.js.map",
     "runtime-main.js": "/react-women-store/static/js/runtime-main.bed21fc9.js",
     "runtime-main.js.map": "/react-women-store/static/js/runtime-main.bed21fc9.js.map",
     "static/js/2.b17674e5.chunk.js": "/react-women-store/static/js/2.b17674e5.chunk.js",
@@ -21,6 +21,6 @@
     "static/js/runtime-main.bed21fc9.js",
     "static/js/2.b17674e5.chunk.js",
     "static/css/main.0c2fd9d1.chunk.css",
-    "static/js/main.37ae9313.chunk.js"
+    "static/js/main.5e327d0d.chunk.js"
   ]
 }
