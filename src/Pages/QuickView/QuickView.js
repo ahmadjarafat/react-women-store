@@ -55,7 +55,7 @@ function QuickView (props){
   let history = useHistory();
   const classes = useStyles();
   const [quantity, setQuantity ] = useState(0);
-  const [select,setSelect] = useState("Size");
+  const [select,setSelect] = useState("Large");
   const [currentProduct, setCurrentProduct] = useState(history.location.state.index);
   const [currentState,ii] = useState(history.location.state)
   const [color, setColor] = useState(history.location.state.color);
