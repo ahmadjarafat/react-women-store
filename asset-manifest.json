@@ -1,26 +1,26 @@
 {
   "files": {
-    "main.css": "/react-women-store/static/css/main.0c2fd9d1.chunk.css",
-    "main.js": "/react-women-store/static/js/main.2f61d0fb.chunk.js",
-    "main.js.map": "/react-women-store/static/js/main.2f61d0fb.chunk.js.map",
-    "runtime-main.js": "/react-women-store/static/js/runtime-main.bed21fc9.js",
-    "runtime-main.js.map": "/react-women-store/static/js/runtime-main.bed21fc9.js.map",
-    "static/js/2.b17674e5.chunk.js": "/react-women-store/static/js/2.b17674e5.chunk.js",
-    "static/js/2.b17674e5.chunk.js.map": "/react-women-store/static/js/2.b17674e5.chunk.js.map",
-    "static/js/3.71ae78f8.chunk.js": "/react-women-store/static/js/3.71ae78f8.chunk.js",
-    "static/js/3.71ae78f8.chunk.js.map": "/react-women-store/static/js/3.71ae78f8.chunk.js.map",
-    "index.html": "/react-women-store/index.html",
-    "static/css/main.0c2fd9d1.chunk.css.map": "/react-women-store/static/css/main.0c2fd9d1.chunk.css.map",
-    "static/js/2.b17674e5.chunk.js.LICENSE.txt": "/react-women-store/static/js/2.b17674e5.chunk.js.LICENSE.txt",
-    "static/media/dress.b6fa3025.png": "/react-women-store/static/media/dress.b6fa3025.png",
-    "static/media/girl-7.2ae21785.png": "/react-women-store/static/media/girl-7.2ae21785.png",
-    "static/media/neck.12e36403.png": "/react-women-store/static/media/neck.12e36403.png",
-    "static/media/purse.e33163b6.png": "/react-women-store/static/media/purse.e33163b6.png"
+    "main.css": "/react-women-store/Home/static/css/main.0c2fd9d1.chunk.css",
+    "main.js": "/react-women-store/Home/static/js/main.a567fbe2.chunk.js",
+    "main.js.map": "/react-women-store/Home/static/js/main.a567fbe2.chunk.js.map",
+    "runtime-main.js": "/react-women-store/Home/static/js/runtime-main.8a69c1c7.js",
+    "runtime-main.js.map": "/react-women-store/Home/static/js/runtime-main.8a69c1c7.js.map",
+    "static/js/2.1b04f7ac.chunk.js": "/react-women-store/Home/static/js/2.1b04f7ac.chunk.js",
+    "static/js/2.1b04f7ac.chunk.js.map": "/react-women-store/Home/static/js/2.1b04f7ac.chunk.js.map",
+    "static/js/3.71ae78f8.chunk.js": "/react-women-store/Home/static/js/3.71ae78f8.chunk.js",
+    "static/js/3.71ae78f8.chunk.js.map": "/react-women-store/Home/static/js/3.71ae78f8.chunk.js.map",
+    "index.html": "/react-women-store/Home/index.html",
+    "static/css/main.0c2fd9d1.chunk.css.map": "/react-women-store/Home/static/css/main.0c2fd9d1.chunk.css.map",
+    "static/js/2.1b04f7ac.chunk.js.LICENSE.txt": "/react-women-store/Home/static/js/2.1b04f7ac.chunk.js.LICENSE.txt",
+    "static/media/dress.b6fa3025.png": "/react-women-store/Home/static/media/dress.b6fa3025.png",
+    "static/media/girl-7.2ae21785.png": "/react-women-store/Home/static/media/girl-7.2ae21785.png",
+    "static/media/neck.12e36403.png": "/react-women-store/Home/static/media/neck.12e36403.png",
+    "static/media/purse.e33163b6.png": "/react-women-store/Home/static/media/purse.e33163b6.png"
   },
   "entrypoints": [
-    "static/js/runtime-main.bed21fc9.js",
-    "static/js/2.b17674e5.chunk.js",
+    "static/js/runtime-main.8a69c1c7.js",
+    "static/js/2.1b04f7ac.chunk.js",
     "static/css/main.0c2fd9d1.chunk.css",
-    "static/js/main.2f61d0fb.chunk.js"
+    "static/js/main.a567fbe2.chunk.js"
   ]
 }
