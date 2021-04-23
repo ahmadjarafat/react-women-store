@@ -65,7 +65,7 @@ function Header(props)
               </h1>) : null
       }
                <div className="Navigation">
-               <Link className="navLink" to="/Home">
+               <Link className="navLink" to="/">
                  Home
                </Link>
                <Link className="navLink" to="/shop">
@@ -117,7 +117,7 @@ else{
     </div>
     <div id="nav-content" tabIndex="0">
       <ul>
-        <li> <Link to="/Home">
+        <li> <Link to="/">
                  Home
                </Link> </li>
         <li>  <Link to="/shop">

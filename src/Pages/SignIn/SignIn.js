@@ -24,7 +24,7 @@ function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
-      <Link color="inherit" to="/Home">
+      <Link color="inherit" to="/">
         Pretty Gal
       </Link>{' '}
       {new Date().getFullYear()}
@@ -182,7 +182,7 @@ userCartCount: 0});
           </Button>
           <Grid container>
             <Grid item xs>
-              <Link to="/Home" variant="body2">
+              <Link to="/" variant="body2">
                 Forgot password?
               </Link>
             </Grid>
