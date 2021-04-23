@@ -12,7 +12,7 @@ class SomethingWentWrong extends React.Component {
           <h1>:(</h1>
         </div>
         <h2>Oops! Something went wrong!</h2>
-        <p>The page you are looking for might have been removed had its name changed or is temporarily unavailable. <a href="/Home">Return to homepage</a></p>
+        <p>The page you are looking for might have been removed had its name changed or is temporarily unavailable. <a href="https://ahmadjarafat.github.io/react-women-store/Home">Return to homepage</a></p>
       </div>
     </div>)
 
