@@ -13,8 +13,8 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import { useForm, Controller } from 'react-hook-form';
-import firebase, { auth, provider } from '../../firebase';
+import { useForm } from 'react-hook-form';
+import firebase from '../../firebase';
 import {useState,useEffect} from "react";
 import {useHistory} from "react-router-dom";
 
@@ -24,8 +24,8 @@ function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
+      <Link color="inherit" to="/Home">
+        Pretty Gal
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -57,7 +57,7 @@ const useStyles = makeStyles((theme) => ({
 export default function SignIn() {
   let history = useHistory();
   const classes = useStyles();
-  const { register, handleSubmit, errors, control } = useForm();
+  const { register, handleSubmit, errors } = useForm();
   const [errorMessage, setErrorMessage] = useState({errorSignIn: "",
 errorSignOut: ""});
   const [userData,setUserData] = useState({userState: false,
@@ -69,7 +69,6 @@ userCartCount: 0});
   const handleSignIn = (e) => {
     firebase.auth().signInWithEmailAndPassword(e.email,e.password)
   .then((userCredential) => {
-    let user = userCredential.user;
     setUserData({...userData, userState: true})
   })
   .catch((error) => {
@@ -183,7 +182,7 @@ userCartCount: 0});
           </Button>
           <Grid container>
             <Grid item xs>
-              <Link href="#" variant="body2">
+              <Link to="/Home" variant="body2">
                 Forgot password?
               </Link>
             </Grid>

@@ -6,7 +6,6 @@ import { useEffect, useState} from "react";
 import {useHistory} from "react-router-dom";
 import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
-import {Link} from "react-router-dom";
 import { makeStyles } from '@material-ui/core/styles';
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 import Button from '@material-ui/core/Button';
@@ -21,7 +20,9 @@ import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import NativeSelect from '@material-ui/core/NativeSelect';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import firebase, { auth, provider } from '../../firebase.js';
+import firebase from '../../firebase.js';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { useTheme } from '@material-ui/core/styles';
 
 
 
@@ -48,12 +49,13 @@ const useStyles = makeStyles((theme) => ({
 
 
 function QuickView (props){
-
+  const theme = useTheme();
+  const TabletSize = useMediaQuery(theme.breakpoints.between('650',"1100"));
+  const mobileSize = useMediaQuery(theme.breakpoints.down('650'));
   let history = useHistory();
   const classes = useStyles();
   const [quantity, setQuantity ] = useState(0);
   const [select,setSelect] = useState("Size");
-  const [products,setProducts] = useState(history.location.state.dataObject);
   const [currentProduct, setCurrentProduct] = useState(history.location.state.index);
   const [currentState,ii] = useState(history.location.state)
   const [color, setColor] = useState(history.location.state.color);
@@ -104,23 +106,36 @@ function QuickView (props){
  
   
     return(
-        <Grid container justify="center" direction="row">
-         <Grid style={{marginTop: "40px"}} item justify="space-between" xs={8}  container  direction="row">
+          
+        <Grid container alignItems="center" justify="center" direction="column">
+          {mobileSize || TabletSize ?  ( <Grid container style={{height:"200px",marginTop:"60px"}} justify="space-around" alignItems="center" direction="row" xs="9">
+            <Grid item xs={5}>
+            <Button style={{width:"100%"}} onClick={handlePrevious} className="quickLink">
+              prev product
+            </Button>
+           </Grid>
+           <Grid item xs={5}>
+            <Button style={{width:"100%"}} onClick={handleNext} className="quickLink">
+              Next Product
+            </Button>
+            </Grid>
+           </Grid> ) 
+          : ( <Grid style={{marginTop: "40px"}} item justify="space-between" xs={8}  container  direction="row">
           <Grid item>
            <Typography variant="subtitle2" >
           {` Home / Shop /Product`}
            </Typography>
           </Grid>
           <Grid container direction="row" justify="flex-end" alignItems="center" xs={6} item >
-            <Grid item xs={2} justify="flex-end" container>
-                <Grid item>
-                  <Button onClick={handlePrevious} className="quickLink">
-              <NavigateBeforeIcon style={{fontSize: "30px"}} />
+            <Grid item xs={3} justify="flex-end" container>
+                <Grid xs={5} item>
+                  <Button style={{minWidth:"0px",backgroundColor:"transparent"}}  onClick={handlePrevious} className="quickLink">
+              <NavigateBeforeIcon style={{fontSize: "30px",color: "#6C6D6D"}} />
                   </Button>
               </Grid>
-              <Grid item>
-           <Button onClick={handlePrevious} className="quickLink">
-              <Typography style={{marginTop:"5px",color: "#D3D3D3" }} variant="h1" >
+              <Grid xs={5} item>
+           <Button style={{minWidth:"0px",backgroundColor:"transparent"}} onClick={handlePrevious} className="quickLink">
+              <Typography style={{color: "#6C6D6D" }} variant="h1" >
                 Prev
                 </Typography>
                 </Button>
@@ -132,34 +147,35 @@ function QuickView (props){
             </Grid> 
           
          
-              <Grid justify="flex-start" xs={2} item container>
+              <Grid justify="flex-start" xs={4} item container>
               <Grid item>
-                <Button onClick={handleNext} >
-              <Typography style={{marginTop: "5px",color: "#D3D3D3"}} variant="h1" >
+                <Button style={{minWidth:"0px",backgroundColor:"transparent"}}  onClick={handleNext} >
+              <Typography style={{color: "#6C6D6D"}} variant="h1" >
                 Next
                 </Typography>
                 
                 </Button>
                 </Grid>
                 <Grid item>
-                <Button onClick={handleNext} >
-             <NavigateNextIcon style={{fontSize: "30px"}} />
+                <Button style={{minWidth:"0px",backgroundColor:"transparent"}}  onClick={handleNext} >
+             <NavigateNextIcon style={{fontSize: "30px",color: "#6C6D6D"}} />
                 </Button>
               </Grid>
               </Grid>
           </Grid>
-          </Grid>
-         <Grid item justify="space-between" container xs={8}>
-          <Grid xs={6} style={{marginTop: "70px"}} direction="column" item container> 
-            <div className="productImage"  style={{ backgroundImage: `url("${history.location.state.dataObject[currentProduct].image.sizes[2].url}")`}}>
+          </Grid>)}
+         
+         <Grid item justify={TabletSize || mobileSize? "center" : "space-between"} alignItems="center" direction={TabletSize || mobileSize? "column" : "row"}  container xs={TabletSize? 9 : mobileSize? 12 : 8} >
+          <Grid justify="center" alignItems="center" xs={TabletSize? 10 : mobileSize? 11 : 6} style={{marginTop: "70px"}} direction="column" item container> 
+            <div className="productImage"  style={{ backgroundImage: `url("${history.location.state.dataObject[currentProduct].image.sizes[2].url}")`,width: mobileSize? "100%": "100%", backgroundPositionX: mobileSize? "35%" : "center"}}>
             </div>
-            <div className="productText">
+            <div  className="productText">
             <Typography style={{fontSize: "18px"}} variant="body2">
              {history.location.state.dataObject[currentProduct].shortDescription}
             </Typography>
             </div>
           </Grid>
-          <Grid xs={5} direction="column" item container>
+          <Grid xs={TabletSize? 10 : mobileSize?11 : 5} direction="column" item container>
            <Grid style={{marginTop: "70px"}} item> 
              <Typography className={classes.title} style={{fontSize: "22px"}} variant="body2">
              {history.location.state.dataObject[currentProduct].image.caption}
@@ -190,7 +206,6 @@ function QuickView (props){
           value={select}
           onChange={handleSelect}
         >
-          <option value="">Size</option>
           <option value="Large">Large</option>
           <option value="Medium">Medium</option>
           <option value="Small">Small</option>

@@ -10,7 +10,11 @@ import { makeStyles } from '@material-ui/core/styles';
 import {useState,useEffect} from "react";
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import Grid from '@material-ui/core/Grid';
-import firebase, { auth, provider } from '../../firebase';
+import firebase from '../../firebase';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { useTheme } from '@material-ui/core/styles';
+
+
 function Header(props)
 { 
   const useStyles = makeStyles((theme) => ({
@@ -25,7 +29,10 @@ function Header(props)
   }
   
   }))
-
+  const theme = useTheme();
+  const largeScreenSize = useMediaQuery(theme.breakpoints.up('lg'));
+  const mediumScreenSize = useMediaQuery(theme.breakpoints.between('850',"md"))
+  const smallScreenSize = useMediaQuery(theme.breakpoints.down('850'));
   const classes = useStyles();
   const [cartCount, setCartCount] = useState(0);
   useEffect(() => {
@@ -47,29 +54,31 @@ function Header(props)
       return function CleanUp() {
         mounted = false;
       }},[])
-  
+      if(largeScreenSize || mediumScreenSize)
+      {
     return(
         <div className="Header-container">
             <div className="center-container">
-              <h1 className="pretty-gla">
+              { largeScreenSize? (
+              <h1 className="pretty-gal">
                 P R E T T Y &nbsp; G A L 
-              </h1>
+              </h1>) : null
+      }
                <div className="Navigation">
-               <Link className="navLink" to="/">
+               <Link className="navLink" to="/Home">
                  Home
                </Link>
                <Link className="navLink" to="/shop">
                  Shop
                </Link>
-               <Link className="navLink"  to="/">
+               <Link className="navLink"  to="/sale">
                Sale
                </Link>
-               <Link className="navLink" to="/CustomerCare">
-               Customer Care
-               </Link>
+            
                <Link className="navLink" to="/Stockists">
                Stockists
                </Link>
+
             </div>
             <Grid justifyItems="center" alignItems="center" style={{width: "150px"}} container>
               <Grid item>
@@ -94,6 +103,44 @@ function Header(props)
         </div>
         </div>
     )
+}
+else{
+  return(
+    <div className="page">
+  <header className="headerMobile" tabIndex="0">Header</header>
+  <div id="nav-container">
+    <div className="bg"></div>
+    <div className="button" tabIndex="0">
+      <span className="icon-bar"></span>
+      <span className="icon-bar"></span>
+      <span className="icon-bar"></span>
+    </div>
+    <div id="nav-content" tabIndex="0">
+      <ul>
+        <li> <Link to="/Home">
+                 Home
+               </Link> </li>
+        <li>  <Link to="/shop">
+                 Shop
+               </Link></li>
+        <li>  <Link to="/sale">
+               Sale
+               </Link></li>
+               <li>  <Link to="/Cart">
+              Cart
+               </Link></li>
+        <li><Link to="/Stockists">
+               Stockists
+               </Link> </li>
+               <li>  <Link to="/SignIn">
+               Sing In
+               </Link></li>
+      </ul>
+    </div>
+  </div>
+</div>
+  )
+}
 }
 
 export {Header};

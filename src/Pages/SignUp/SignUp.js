@@ -13,8 +13,8 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import { useForm, Controller } from 'react-hook-form';
-import firebase, { auth, provider } from '../../firebase';
+import { useForm } from 'react-hook-form';
+import firebase from '../../firebase';
 import {useState,useEffect} from "react";
 import {Redirect} from "react-router-dom";
 
@@ -60,7 +60,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignUp() {
   const classes = useStyles();
-  const { register, handleSubmit, errors, control,reset } = useForm();
+  const { register, handleSubmit, errors,reset } = useForm();
   const [key,setKey] =  useState("")
   const [userInfo,setUserInfo] = useState({
     "user Id": "",

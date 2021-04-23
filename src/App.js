@@ -13,12 +13,15 @@ import {Footer} from "./Components/Footer/Footer"
 import {CustomerCare} from "./Pages/CoustmerCare/CustomerCare"
 import {Stockists} from "./Pages/Stockists/Stockists"
 import {QuickView} from "./Pages/QuickView/QuickView"
-import {useEffect,useState,useRef} from "react";
+import {useEffect,useState} from "react";
 import Cart from "./Pages/Cart/Cart";
 import {useReducer} from "react";
 import SignIn from "./Pages/SignIn/SignIn"
 import SignUp from "./Pages/SignUp/SignUp"
-import firebase, { auth, provider } from './firebase.js';
+import firebase from './firebase.js';
+import Error404 from "./ErorrPages/Erorr404"
+import {ErrorBoundary} from 'react-error-boundary'
+import SomethingWentWrong from "./ErorrPages/SomethingWentWrong"
 
 
 
@@ -41,7 +44,6 @@ function App() {
    let flag = true;
     switch (action.type) {
       case "Add Item":
-        console.log("jf")
         let itemsCopy = state.items.map((value) => {
          if (value.url === action.objInfo.url && value.size === action.objInfo.size )
          {
@@ -99,7 +101,6 @@ function App() {
             })
           }
           case "firstRender": 
-          console.log(action.inf)
           return action.inf;
         default:
         return {...state}
@@ -114,7 +115,6 @@ function App() {
          firebase.database().ref("users/" + uid + "/Items").set(state)
       }
     },() => {
-      console.log("something went wrong")
     },  () => firebase.Unsubscribe)
  },[state])
 
@@ -165,9 +165,10 @@ const removeAllOfOneProduct = (obj) => {
     
   
 return (
-    
+  
       <Router basename="/react-women-store">
         <ThemeProvider theme={theme}>
+        <ErrorBoundary FallbackComponent={SomethingWentWrong}>
         <Header />
    <Switch>
    <Route path="/CustomerCare">
@@ -177,7 +178,10 @@ return (
           <QuickView add= {addToCart}/>
           </Route>
    <Route path="/shop">
-            <Shop />
+            <Shop title={"SHOP"}/>
+          </Route>
+          <Route exact path="/sale">
+            <Shop title={"SALE"} />
           </Route>
           <Route path="/Stockists">
             <Stockists />
@@ -191,11 +195,15 @@ return (
           <Route exact path="/SignUp">
              <SignUp/>
           </Route>
-   <Route path="/">
+   <Route path="/Home">
             <Home />
+          </Route>
+          <Route>
+            <Error404 />
           </Route>
    </Switch>
    <Footer />
+   </ErrorBoundary>
    </ThemeProvider>
     </Router>
 

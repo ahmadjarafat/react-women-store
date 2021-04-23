@@ -13,42 +13,82 @@ import Button from '@material-ui/core/Button';
 const useStyles = makeStyles((theme) => ({
 
 grid:{
+   
         width: "100%",
-        height: "350px",
+        height: "250px",
         marginTop: "30px",
         backgroundColor: "#303132",
+        flexWrap: "nowrap",
+        [theme.breakpoints.down('sm')]: {
+            flexDirection:"column",
+            alignItems: "center",
+            height: "350px",
+            },
 },
+
 gridItem1:{
-    width: "70%",
     color: theme.palette.info.main,
-    marginTop: "30px",
+    [theme.breakpoints.up('md')]: {
+        width: "33%",
+        marginTop: "30px",
+        justifyContent:"space-between"
+       },
+       [theme.breakpoints.down('sm')]: {
+        width: "70%",
+        },
 },
 gridItem2:{
-    width: "70%",
     color: theme.palette.info.main, 
-    marginTop: "40px"
+    [theme.breakpoints.up('md')]: {
+        flexDirection: "column",
+        width: "33%",
+        marginTop: "30px",
+        justifyContent:"space-between"
+       },
+       [theme.breakpoints.down('sm')]: {
+        width: "60%",
+        },
+        [theme.breakpoints.down('xs')]: {
+            width: "100%",
+            },
 },
+gridItem3:{
+    color: theme.palette.info.main, 
+    [theme.breakpoints.up('md')]: {
+        flexDirection: "column",
+        width: "33%",
+        marginTop: "30px",
+       },
+    },
 textField:{
     width: "100%",
     backgroundColor: "#5B5551",
-    
 },
 input1: {
+    [theme.breakpoints.down('sm')]: {
+       width: "90%"
+        },
+        
     width: "65%",
+    textAlign: "center"
    
 },
 input2: {
     width: "65%",
     marginTop: "10px",
-      
-   
+    [theme.breakpoints.down('xs')]: {
+        width: "80%"
+         },
+         [theme.breakpoints.between('450', '600')]: {
+           width:"60%"
+          },
 },
 button:{
     backgroundColor: theme.palette.info.main,
     width: "100%",
     height: "35px",
     color: theme.palette.primary.light,
-}
+},
 
 }));
 
@@ -58,36 +98,42 @@ function Footer(){
     const classes = useStyles();
     return(
     <div>
-        <Grid container alignItems="center" direction="column" className={classes.grid} >
-
-        <Grid container item justify="space-between" className={classes.gridItem1}>
+        <Grid container alignItems="flex-start" justify="space-around" direction="row" className={classes.grid} >
+        <Grid container item style={{height: "90px"}} justify="center" alignItems="center" direction="column" spacing={2} className={classes.gridItem1}>
 
            <Grid item>
             STAY CONNECTED
            </Grid>
-           <Grid item>
-              BE OUR FRIEND
-           </Grid>
-           <Grid item>
-              NEED ASSISTANCE?
-           </Grid>
-           </Grid>
-           <Grid container item direction="row" justify="space-between" className={classes.gridItem2} >
-               <Grid item container alignItems="center" spacing={2} xs={2} >
-                  <Grid item> 
+           <Grid item container className={classes.socialMedia} justify="center" direction="row" alignItems="center" md={7} spacing={2} >
+                  <Grid item>
+                   <a href="https://www.facebook.com/ahmad.arafat.9">
                    <FacebookIcon />
+                   </a>
                   </Grid >
                   <Grid item>
+                  <a href="https://twitter.com/ahmad_arafat4">
                      <TwitterIcon />
+                  </a>
+
                   </Grid>
                   <Grid>
+                  <a href="https://www.pinterest.com/ahmadjarafat/_saved/">
                       <PinterestIcon />
+                      </a>
                   </Grid>
                   <Grid item>
+                  <a href="https://www.facebook.com/ahmad.arafat.9">
                     <InstagramIcon />
+                    </a>
                   </Grid>
                </Grid>
-               <Grid item container direction="column" alignItems="flex-end" xs={6}>
+           {/* <Grid item>
+              NEED ASSISTANCE?
+           </Grid> */}
+           </Grid>
+           <Grid container item direction="column" alignItems="center" justify="center" className={classes.gridItem2} >
+             
+              
                  <Grid item className={classes.input1}>
                     <TextField placeholder="Enter your email here*"/>
                  </Grid>
@@ -97,27 +143,27 @@ function Footer(){
                <Button className={classes.button}>
                  <Typography variant="body1">Subscribe Now</Typography>  
                </Button>
-                
                </Grid>
+                
+               
                </Grid>
 
-               <Grid item xs={4} spacing={1} container direction="column" alignItems="flex-end">
+               <Grid item  spacing={1} className={classes.gridItem3} container direction="column" alignItems="center">
                    <Grid item>
 
                        <Typography variant="h2">
 
-                      123-456-789
+                      +972-597156935
                        </Typography>
                    </Grid>
                    <Grid item >
                        <Typography variant="h2">
-                     info@mysite.com
+                     ahmadjarafat@gmail.com
                      </Typography>
                    </Grid>
                </Grid>
 
 
-           </Grid>
         </Grid>
     </div>
     )

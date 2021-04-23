@@ -1,12 +1,14 @@
 import React from "react";
-import App from "../../App";
 import "./Cart.css";
 import Grid from '@material-ui/core/Grid';
 import { Typography } from "@material-ui/core";
 import { makeStyles } from '@material-ui/core/styles';
 import {useState,useEffect} from "react";
 import CartProduct from "../../Components/CartProduct/CartProduct"
-import firebase, { auth, provider } from '../../firebase';
+import firebase from '../../firebase';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { useTheme } from '@material-ui/core/styles';
+
 
 
 const useStyles = makeStyles((theme) => ({
@@ -19,6 +21,9 @@ const useStyles = makeStyles((theme) => ({
 
 
 function Cart (props){
+    const theme = useTheme();
+    const tabletSize = useMediaQuery(theme.breakpoints.between('750',"1100"));
+    const mobileSize = useMediaQuery(theme.breakpoints.down("750"));
     const [userDataCart,setUserDataCart] = useState({userState: false,
       userItems: [],
       userCartCount: 0,
@@ -53,8 +58,8 @@ function Cart (props){
      arrayCopy = Object.values(userDataCart.userItems);
     return(
        
-        <Grid container spacing={10}  justify="center" direction="row">
-      <Grid style={{marginTop: "30px"}} item container xs={6} direction="column">
+        <Grid container spacing={10}  justify="center" alignItems={mobileSize || tabletSize? "center" : "flex-start"} direction={tabletSize ? "column" : "row"}>
+      <Grid style={{marginTop: "30px"}} item container xs= {tabletSize? 10 : mobileSize? 12 : 6}direction="column">
           <Grid item>
             <Typography style={{fontSize: "23px",color: "#5D5D5E"}} variant="h1">
              My Cart 
@@ -65,13 +70,13 @@ function Cart (props){
                  return <CartProduct removeAllOfOneProduct={props.removeAllOfOneProduct} removeFunction={props.removeFunction} addFunction={props.addFunction} key={index} index={index} value={value} />
 })}
         </Grid>
-         <Grid style={{marginTop: "30px"}} direction="column" item xs={3}>
+         <Grid style={{marginTop: "30px"}} direction="column" item xs={mobileSize || tabletSize? 10 : 3}>
         <Grid item>
         <Typography style={{fontSize: "23px",color: "#5D5D5E"}} variant="h1">
             Order Summery
             </Typography>
             </Grid>
-            <Grid item style={{marginTop: "30px"}} className={classes.vector}></Grid>
+            <Grid item container style={{marginTop: "30px"}} className={classes.vector}></Grid>
             <Grid style={{marginTop: "30px"}} container direction="row" xs={12} justify="space-between" item >
                 <Grid style={{marginTop: "2px"}} item>
                 <Typography style={{fontSize: "20px",color: "#5D5D5E"}} variant="h2">

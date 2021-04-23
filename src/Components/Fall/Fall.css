@@ -1,6 +1,5 @@
 .fall-container{
     display: flex;
-    height: 870px;
     width: 100%;
     background-repeat: no-repeat;
     background-size: cover;
@@ -14,10 +13,7 @@
 }
 
 .winter{
-    font-size: 68px;
     font-family: 'Times New Roman', Times, serif;
-    width: 673.2px;
-    margin-left: 50px;
     font-weight: 700;
     background-color:rgba(233,228,218,0.73);
     display: flex;
@@ -37,6 +33,8 @@
         font-family: 'URW Chancery';
         font-size: 15px;
     }
+
+
 
 
 

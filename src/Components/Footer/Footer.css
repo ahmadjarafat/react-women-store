@@ -9,3 +9,26 @@
 ::-webkit-input-placeholder{
     color: blue;
 }
+
+a:link {
+    color: #D3D3D3;
+    text-decoration: none;
+  }
+  
+  /* visited link */
+  a:visited {
+    color: #D3D3D3;
+    text-decoration: none;
+  }
+  
+  /* mouse over link */
+  a:hover {
+    color: #D3D3D3;
+    text-decoration: none;
+  }
+  
+  /* selected link */
+  a:active {
+    color: #D3D3D3;
+    text-decoration: none;
+  }

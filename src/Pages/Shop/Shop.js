@@ -23,6 +23,10 @@ import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormGroup from '@material-ui/core/FormGroup';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { useTheme } from '@material-ui/core/styles';
+
+
 
 
 
@@ -60,8 +64,10 @@ const useStyles = makeStyles((theme) => ({
 function Shop(props){
 
 
-    const classes = useStyles();  
-
+     const classes = useStyles();  
+     const theme = useTheme();
+     const TabletSize = useMediaQuery(theme.breakpoints.between('500',"1000"));
+     const mobileSize = useMediaQuery(theme.breakpoints.down('500'));
       const [data, setData] = useState({});
       const [value, setValue] = useState([0,50]);
       const [check, setCheck] = useState({"Red": false,
@@ -133,12 +139,302 @@ function Shop(props){
         
     
 
-   
+   if(TabletSize) {
 
     return(
+      
+      <div className="shop-container">
+      <div className="shop-header">
+      <Typography color="primary" variant="h5">S H O P</Typography>
+
+      </div>
+      <Grid container direction="column" alignItems="center" justify="center" spacing={5}>
+     <Grid container item direction="column" xs={8} spacing={3}>
+          <Grid item>
+            <Typography variant="h3" className={classes.filter}>
+             Filter by
+            </Typography>
+          </Grid>
+
+        <Grid item>
+        
+        <div>
+            <Accordion square>
+         <AccordionSummary
+           expandIcon={<AddOutlinedIcon />}
+           aria-controls="panel1a-content"
+           id="panel1a-header"
+         >
+           <Typography variant="h4" >Price</Typography>
+         </AccordionSummary>
+         <AccordionDetails>
+ 
+          <Grid container direction="column" spacing={2}>
+              <Grid>
+           <Slider
+         value={value}
+         onChange={handleChangeSelect}
+         aria-labelledby="range-slider"
+         min= {0}
+         max= {50}
+         disabled= {value[1]-value[0] === 1 ? true: false}
+
+       />
+       </Grid>
+ 
+        <Grid container direction="row" justify="space-between" item >
+                <Grid item>
+                     <div className={classes.price}>
+                       ${value[0]}
+                     </div>
+                 
+                </Grid>
+                <Grid item>
+                  <div className={classes.price}>
+                    ${value[1]}
+                  </div>
+ 
+                </Grid>
+                </Grid>
+                </Grid>
+         </AccordionDetails>
+       </Accordion>
+       
+     </div>
+
+       
+        </Grid>
+        
+        <Grid item>
+        
+        <div>
+            <Accordion square>
+         <AccordionSummary
+           expandIcon={<AddOutlinedIcon />}
+           aria-controls="panel1a-content"
+           id="panel1a-header"
+         >
+           <Typography variant="h4" >Color</Typography>
+         </AccordionSummary>
+         <AccordionDetails>
+           <FormGroup >
+           {[["Black","#1a1a1a"],["Brown","#8e2525"],["Green", "#248f24"],["Off White","Off White"],["Purple","#660066"],["Red","#b30000"]].map((value) => (
+              <FormControlLabel
+              control={<Checkbox onChange={handleChangeCheck} checked={check[value[0]]} icon={<FiberManualRecordIcon fontSize="large" htmlColor={value[1]} />} checkedIcon={<RadioButtonUncheckedIcon fontSize="large" htmlColor={value[1]} />} name= {value[0]} />}
+            />
+           ) )}
+           </FormGroup>
+            
+         </AccordionDetails>
+       </Accordion>
+       
+     </div>
+
+       
+        </Grid>
+        </Grid>
+        <Grid container justify="center" item xs={12}>
+        
+
+        <Grid xs={11} container item spacing={2}>
+         
+           {[0,3,6,9,12,15,18,21].map((value) => (
+             <Grid className={`card${value}`} key={value} xs={6} item>
+              <Link to={() => {
+               const cardColor = color;
+                return {
+                  pathname: "/quickView",
+                  state: { 
+                   index: value,
+                   dataObject: data.products,
+                   color: cardColor,
+                  } 
+               }}} >
+       
+                <Card>
+                    <CardContent>
+                        <CardActionArea>
+                            <CardMedia image={data.products&&data.products[value].image.sizes[2].url} style={{height: "300px"}}>
+                              
+                            </CardMedia>
+                        </CardActionArea>
+                    </CardContent>
+                </Card>
+                </Link>
+                <Grid container className={classes.product} direction="column" alignItems="flex-start" spacing={1}>
+                            <Grid item>
+                          <Typography variant="h4" style={{fontSize: "17px"}}>
+                              {data.products && data.products[value].image.caption}
+                          </Typography>
+                          </Grid>
+                          <Grid item>
+                          <Typography className={classes.price} style={{fontsize:"15px"}}>
+                              {data.products && data.products[value].maximumPriceString}
+                          </Typography>
+                          </Grid>
+                          </Grid>
+                  
+             </Grid>
+         ))}
+        </Grid>
+       
+        </Grid>
+        </Grid>
+    </div>
+
+     
+    )}
+    else if(mobileSize)
+    {
+      return(
+     
+        <div className="shop-container">
+        <div className="shop-header">
+        <Typography color="primary" variant="h5">S H O P</Typography>
+  
+        </div>
+        <Grid container direction="column" alignItems="center" justify="center" spacing={5}>
+       <Grid container item direction="column" xs={11} spacing={3}>
+            <Grid item>
+              <Typography variant="h3" className={classes.filter}>
+               Filter by
+              </Typography>
+            </Grid>
+  
+          <Grid item>
+          
+          <div>
+              <Accordion square>
+           <AccordionSummary
+             expandIcon={<AddOutlinedIcon />}
+             aria-controls="panel1a-content"
+             id="panel1a-header"
+           >
+             <Typography variant="h4" >Price</Typography>
+           </AccordionSummary>
+           <AccordionDetails>
+   
+            <Grid container direction="column" spacing={2}>
+                <Grid>
+             <Slider
+           value={value}
+           onChange={handleChangeSelect}
+           aria-labelledby="range-slider"
+           min= {0}
+           max= {50}
+           disabled= {value[1]-value[0] === 1 ? true: false}
+  
+         />
+         </Grid>
+   
+          <Grid container direction="row" justify="space-between" item >
+                  <Grid item>
+                       <div className={classes.price}>
+                         ${value[0]}
+                       </div>
+                   
+                  </Grid>
+                  <Grid item>
+                    <div className={classes.price}>
+                      ${value[1]}
+                    </div>
+   
+                  </Grid>
+                  </Grid>
+                  </Grid>
+           </AccordionDetails>
+         </Accordion>
+         
+       </div>
+  
+         
+          </Grid>
+          
+          <Grid item>
+          
+          <div>
+              <Accordion square>
+           <AccordionSummary
+             expandIcon={<AddOutlinedIcon />}
+             aria-controls="panel1a-content"
+             id="panel1a-header"
+           >
+             <Typography variant="h4" >Color</Typography>
+           </AccordionSummary>
+           <AccordionDetails>
+             <FormGroup >
+             {[["Black","#1a1a1a"],["Brown","#8e2525"],["Green", "#248f24"],["Off White","Off White"],["Purple","#660066"],["Red","#b30000"]].map((value) => (
+                <FormControlLabel
+                control={<Checkbox onChange={handleChangeCheck} checked={check[value[0]]} icon={<FiberManualRecordIcon fontSize="large" htmlColor={value[1]} />} checkedIcon={<RadioButtonUncheckedIcon fontSize="large" htmlColor={value[1]} />} name= {value[0]} />}
+              />
+             ) )}
+             </FormGroup>
+              
+           </AccordionDetails>
+         </Accordion>
+         
+       </div>
+  
+         
+          </Grid>
+          </Grid>
+          <Grid container justify="center" item xs={12}>
+          
+  
+          <Grid xs={11} alignItems="center" direction="column" container item spacing={2}>
+           
+             {[0,3,6,9,12,15,18,21].map((value) => (
+               <Grid className={`card${value}`} key={value} xs={11} item>
+                <Link to={() => {
+                 const cardColor = color;
+                  return {
+                    pathname: "/quickView",
+                    state: { 
+                     index: value,
+                     dataObject: data.products,
+                     color: cardColor,
+                    } 
+                 }}} >
+         
+                  <Card>
+                      <CardContent>
+                          <CardActionArea>
+                              <CardMedia image={data.products&&data.products[value].image.sizes[2].url} style={{height: "300px"}}>
+                                
+                              </CardMedia>
+                          </CardActionArea>
+                      </CardContent>
+                  </Card>
+                  </Link>
+                  <Grid container className={classes.product} direction="column" alignItems="flex-start" spacing={1}>
+                              <Grid item>
+                            <Typography variant="h4" style={{fontSize: "17px"}}>
+                                {data.products && data.products[value].image.caption}
+                            </Typography>
+                            </Grid>
+                            <Grid item>
+                            <Typography className={classes.price} style={{fontsize:"15px"}}>
+                                {data.products && data.products[value].maximumPriceString}
+                            </Typography>
+                            </Grid>
+                            </Grid>
+                    
+               </Grid>
+           ))}
+          </Grid>
+         
+          </Grid>
+          </Grid>
+      </div>
+      )
+    }
+    else 
+    {
+      return(
+        
         <div className="shop-container">
          <div className="shop-header">
-         <Typography color="primary" variant="h5">S H O P</Typography>
+         <Typography color="primary" variant="h5">{props.title}</Typography>
 
          </div>
         <Grid container direction="row" justify="center" spacing={5}>
@@ -210,7 +506,7 @@ function Shop(props){
               <Typography variant="h4" >Color</Typography>
             </AccordionSummary>
             <AccordionDetails>
-              <FormGroup row="true" >
+              <FormGroup>
               {[["Black","#1a1a1a"],["Brown","#8e2525"],["Green", "#248f24"],["Off White","Off White"],["Purple","#660066"],["Red","#b30000"]].map((value) => (
                  <FormControlLabel
                  control={<Checkbox onChange={handleChangeCheck} checked={check[value[0]]} icon={<FiberManualRecordIcon fontSize="large" htmlColor={value[1]} />} checkedIcon={<RadioButtonUncheckedIcon fontSize="large" htmlColor={value[1]} />} name= {value[0]} />}
@@ -296,7 +592,10 @@ function Shop(props){
         </Grid>
 
         </div>
-    )
+      )
+    }
+    
+              
 }
 
 export {Shop};
