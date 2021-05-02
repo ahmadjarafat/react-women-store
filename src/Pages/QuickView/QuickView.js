@@ -54,13 +54,13 @@ function QuickView (props){
   const mobileSize = useMediaQuery(theme.breakpoints.down('650'));
   let history = useHistory();
   const classes = useStyles();
-  const [quantity, setQuantity ] = useState(0);
+  const [quantity, setQuantity ] = useState(1);
   const [select,setSelect] = useState("Large");
   const [currentProduct, setCurrentProduct] = useState(history.location.state.index);
   const [currentState,ii] = useState(history.location.state)
   const [color, setColor] = useState(history.location.state.color);
-  const [valid,setValid] = useState(false) 
-
+  const [valid,setValid] = useState(false);
+  const [shop,setShop] = useState(false);
   useEffect(() => {
     let mounted = true
     firebase.auth().onAuthStateChanged((user) => {
@@ -92,8 +92,11 @@ function QuickView (props){
       history.push("quickView",{...currentState, index: currentState["index"]+3})
       setCurrentProduct(currentProduct+3)
     }
-      
     
+  }
+
+  const handleAddToCart = () => {
+    setShop(true);
   }
   
   const handlePrevious = (e) => {
@@ -215,28 +218,33 @@ function QuickView (props){
       </FormControl>
                </Grid>
            <Grid style={{marginTop: "15px"}} item>
-           <FormControl>
-        <InputLabel style={{fontSize: "20px"}} htmlFor="component-helper">Quantity</InputLabel>
+           <FormControl error={!valid&&shop}>
+        <InputLabel classes={{error: classes.inputError}} style={{fontSize: "20px"}} htmlFor="component-helper">Quantity</InputLabel>
         <Input
           id="component-helper"
-          inputProps={{ type: "number", min:"0", max:"10", style: {
+          inputProps={{ type: "number", min:"1", max:"10", style: {
             color: "#3C3F40",
           } }}
           onChange={handleIncrement}
           value= {quantity}
         />
          </FormControl>
+         { !valid&&shop&& (<Grid style={{color: "red"}} item>
+           please sign in to start shopping!
+         </Grid>)}
            </Grid>
            <Grid  justify="space-between" alignItems="center" container direction="row" style={{width: "100%", marginTop:"35px", height:"50px" }} item>
              <Grid xs={10} style={{height: "50px"}} item>
-             <button className= {`MuiButtonBase-root MuiButton-root MuiButton-text`} onClick={() => props.add({
+             <button className= {`MuiButtonBase-root MuiButton-root MuiButton-text`} onClick={() => {props.add({
                quantity: quantity,
                size: select,
                price: history.location.state.dataObject[currentProduct].maximumPriceString,
                color: color === "" ? "any" : color,
                url: history.location.state.dataObject[currentProduct].image.sizes[2].url,
                caption: history.location.state.dataObject[currentProduct].image.caption,
-             })} style={{backgroundColor: "white", border:"1px solid #3C3F40", width:"100%",height: "100%"  }}>
+             })
+             handleAddToCart();  
+             }} style={{backgroundColor: "white", border:"1px solid #3C3F40", width:"100%",height: "100%"  }}>
                <span className= {`MuiButton-label`}>
                <div style={{fontSize: "20px", color: "#7F7F7F"}}>
                Add to Cart
